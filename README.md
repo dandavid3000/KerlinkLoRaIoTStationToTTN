@@ -18,19 +18,19 @@ You need:
 
 ## Hardware setup
 After unpacking the Kerlink IoT Station, open the case by putting a screwdriver in the top notch (where the antenna is located).
-    [![Open the station](/img/1.jpg)]
+![Open the station](/img/1.jpg)
 
 Ensure you connect gateway antena to the gateway before powering it up because it can cause some damages.
 
 Connect a UTP network cable on the green connector, cable colors are noted next to the connector. You can use an existing cable by cutting of the connector of one side, or you need to make a new cable including attaching the connector (watch the coloring scheme).
-    [![RJ45 connection](/img/2.jpg)]
+![RJ45 connection](/img/2.jpg)
   
 Attach the UTP cable attached to the Kerlink IoT Station to the “data & power Out” port of the power adapter. Connect the “data IN” port of the power adapter to your existing network. If you use PoE switches, the power adapter is not needed.
-     [![Test and Leds](/img/3.jpg)]
+![Test and Leds](/img/3.jpg)
 
 After powering on, check your DHCP server which IP-address the gateway uses. In the rare case that your network doesn’t use a DHCP server, the gateway will use the static IP `192.168.4.155`. If you connect the gateway to your PC, configure your PC with a static IP address to be in the same LAN. For example `192.168.4.150`.
 The LEDs inside the gateway do not work by default, they only work for about a minute after shortly pressing the “Test” button. This includes the power LEDs.
-     [![RJ45 matching](/img/4.jpg)]
+![RJ45 matching](/img/4.jpg)
 
 Check if the gateway is on by directing a web browser to the IP-address of the gateway, for example http://10.1.0.117 (depending on the given IP-address by the DHCP server or at 192.168.4.155). The page will show “Hello World!” if the gateway is responding.
 
@@ -39,7 +39,7 @@ If you’d like to use a GPRS/3G connection, insert the SIM-card now.
 * Place the SIM card in the SIM card holder.
 * Carefully insert the SIM card holder with the SIM card in the LoRa IoT Station.
 * Configure the settings for the SIM card.
-     [![SIM card](/img/5.png)]
+![SIM card](/img/5.png)
 
 ## Connection
 The main connection to check and configure the gateway is `SSH connection`
@@ -192,9 +192,9 @@ When using the wirnet_v3.1+ firmware, the firewall is activated by default. This
 After the installation, there should be a folder `/mnt/fsuser-1/thethingsnetwork` containing:
 * `global_conf.json`
 * `local_conf.json`: You can find **Gateway_ID** here which is the one you need to register on TTN network (Tick option `I'm using the legacy packet forwarder` on TTN when you register this gateway).
-    [![Gateway registeration](/img/6.png)]
+![Gateway registeration](/img/6.png)
 * Check if you're gateway is on after the registration
-    [![Gateway check](/img/7.png)]
+![Gateway check](/img/7.png)
 ## Cellular 
 GPRS connection is launched at startup automatically (no functions to call), and monitored by the Kerlink embedded agent (relaunched if the GPRS/3G connection falls down).
 **Telecom configuration (APN)**

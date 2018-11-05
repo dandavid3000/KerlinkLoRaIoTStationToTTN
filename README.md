@@ -18,8 +18,9 @@ You need:
 
 ## Hardware setup
 After unpacking the Kerlink IoT Station, open the case by putting a screwdriver in the top notch (where the antenna is located).
- ![Open the station](/img/1.jpg)
 
+ ![Open the station](/img/1.jpg)
+ 
 Ensure you connect gateway antena to the gateway before powering it up because it can cause some damages.
 
 Connect a UTP network cable on the green connector, cable colors are noted next to the connector. You can use an existing cable by cutting of the connector of one side, or you need to make a new cable including attaching the connector (watch the coloring scheme).

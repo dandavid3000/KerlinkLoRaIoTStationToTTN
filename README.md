@@ -197,22 +197,56 @@ After the installation, there should be a folder `/mnt/fsuser-1/thethingsnetwork
 * Check if you're gateway is on after the registration
  ![Gateway check](/img/7.png)
 ## Cellular 
-GPRS connection is launched at startup automatically (no functions to call), and monitored by the Kerlink embedded agent (relaunched if the GPRS/3G connection falls down).
-**Telecom configuration (APN)**
-* Monitoring is done thanks to the ping of DNS servers or personal servers (depends on the configuration). To configure the GPRS auto connection and the link monitoring at startup:
-* set your APN in /etc/sysconfig/network:
+* Please find [here](https://www.thethingsnetwork.org/docs/gateways/kerlink/cellular.html) the full reference from TTN.
+* **SIM card detection is only done at boot time**. Insert the SIM card in the powered off LoRa station.
+* Set your APN settings in `/etc/sysconfig/network` with your network operational parameters:
+    ``` 
+    You can open the file via the terminal, type: vi /etc/sysconfig/network. 
+    Type i to start editing the file, after doing so, save and quit the file: press esc + : + wq + enter
+    ```
+* Please be notice the order in `BEARERS_PRIORITY`
     ```
     # Selector operator APN
     GPRSAPN=m2minternet
     # Enter pin code if activated
     GPRSPIN=
     # Update /etc/resolv.conf to get dns facilities
-    GPRSDNS=yes
+    GPSDNS=yes
     # PAP authentication
     GPRSUSER=kerlink
     GPRSPASSWORD=password
+    
+    # Bearers priority order
+    BEARERS_PRIORITY="ppp0,eth0,eth1"
     ```
-More details for configuration [here](http://wikikerlink.fr/lora-station/doku.php?id=wiki:station)
+* Configure the autoconnect in `/knet/knetd.xml`. Please beotice that connection params should be the same. No more extra lines
+    ```
+    <!-- ############## local device configuration ############## -->
+    <LOCAL_DEV role="KNONE"/>
+    
+    <!-- ############## connection parameters ############## -->
+    <!-- enable the autoconnect feature (YES/NO) -->
+    <CONNECT auto_connection="YES" />
+    <!-- frequency of connection monitoring -ping- (in seconds) -->
+    <CONNECT link_timeout="30"/>
+    <!-- DNS servers will be pinged if commented or deleted. Some operators can block the ping on there DNS servers -->
+    <CONNECT ip_link="8.8.8.8"/>
+    
+    <!-- ############## default area for connection policy ############## -->
+    
+    <AREA id="default">
+    <ACCESS_POINT bearer="gprs" />
+    </AREA>  
+    ```
+    
+* Warning: There is a bug in the software. When `GPRSUSER` and `GPRSPASSWORD` needs to stay empty the Kerlink does funny things and no connection is made. To resolve this problem, please apply this patch.
+
+* **Troubleshooting**: The gateway goes offline and doesn’t restart automatically when the GPRS connection drops. A workaround is to restart the packet forwarder when this occurs. You can do so by adding the line: `/usr/bin/killall` `poly_pkt_fwd` at the bottom of the files `/etc/ppp/ip-up` and `/etc/ppp/ip-down`.
+
+* You can check status via LEDs on the station. GSM1 and GSM2 should be on. In addition, you can also observe package tranmissions with the command below:
+    ```
+    # tcpdump -i ppp0 -v
+    ```
 ## References
 1. [The Things Network](https://www.thethingsnetwork.org/docs/gateways/kerlink/)
 2. [Kerlink Wiki](http://wikikerlink.fr/lora-station/doku.php?id=lorahome)

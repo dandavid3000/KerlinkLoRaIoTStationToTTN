@@ -247,6 +247,8 @@ After the installation, there should be a folder `/mnt/fsuser-1/thethingsnetwork
     ```
     # tcpdump -i ppp0 -v
     ```
+     ![Package tranmissions](/img/8.PNG)
+    
 ## References
 1. [The Things Network](https://www.thethingsnetwork.org/docs/gateways/kerlink/)
 2. [Kerlink Wiki](http://wikikerlink.fr/lora-station/doku.php?id=lorahome)

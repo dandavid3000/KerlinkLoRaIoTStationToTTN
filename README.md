@@ -238,17 +238,16 @@ After the installation, there should be a folder `/mnt/fsuser-1/thethingsnetwork
     <ACCESS_POINT bearer="gprs" />
     </AREA>  
     ```
-    
-* Warning: There is a bug in the software. When `GPRSUSER` and `GPRSPASSWORD` needs to stay empty the Kerlink does funny things and no connection is made. To resolve this problem, please apply this patch.
-
+* Warning: There is a bug in the software. When `GPRSUSER` and `GPRSPASSWORD` needs to stay empty the Kerlink does funny things and no connection is made. To resolve this problem, please modify file `/etc/init.d/gprs` at this line:
+     ```
+     [ ${GPRSUSER} ] && PPP_OPTIONS="user ${GPRSUSER} password ${GPRSPASSWORD}"
+     ```
 * **Troubleshooting**: The gateway goes offline and doesn’t restart automatically when the GPRS connection drops. A workaround is to restart the packet forwarder when this occurs. You can do so by adding the line: `/usr/bin/killall` `poly_pkt_fwd` at the bottom of the files `/etc/ppp/ip-up` and `/etc/ppp/ip-down`.
 
 * You can check status via LEDs on the station. GSM1 and GSM2 should be on. In addition, you can also observe package tranmissions with the command below:
     ```
     # tcpdump -i ppp0 -v
     ```
-     ![Package tranmissions](/img/8.PNG)
-    
 ## References
 1. [The Things Network](https://www.thethingsnetwork.org/docs/gateways/kerlink/)
 2. [Kerlink Wiki](http://wikikerlink.fr/lora-station/doku.php?id=lorahome)
